@@ -1,3 +1,5 @@
+import * as model from './model.js'
+
 // import icons from '../img/icons.svg' // Parcel 1
 import icons from 'url:../img/icons.svg'; // Parcel 2
 import 'core-js/stable';
@@ -34,7 +36,10 @@ const showRecipe = async function () {
   try {
     const id = window.location.hash.slice(1);
 
+    if(!id) return;
     renderSpinner(recipeContainer);
+
+    await model.loadRecipe(id);
 
     const markup = `<figure class="recipe__fig">
           <img src="${recipe.image}" alt="Tomato" class="recipe__img" />
